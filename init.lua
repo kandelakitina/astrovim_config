@@ -237,17 +237,18 @@ local config = {
         end,
       },
       {
-          "kylechui/nvim-surround",
-          tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-          config = function()
-              require("nvim-surround").setup({
-                  -- Configuration here, or leave empty to use defaults
-                keymaps = {
-                  visual = "gs",
-                },
-              })
-          end
-      }
+        "kylechui/nvim-surround",
+        config = function()
+          require("nvim-surround").setup({
+              -- Configuration here, or leave empty to use defaults
+            keymaps = {
+              visual = "gs",
+            },
+          })
+        end
+      },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "turbio/bracey.vim" },
       -- We also support a key value style plugin definition similar to NvChad:
       -- ["ray-x/lsp_signature.nvim"] = {
       --   event = "BufRead",
