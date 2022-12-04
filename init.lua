@@ -206,11 +206,35 @@ local config = {
       ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
       ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
       -- quick save
-      -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+      ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+      -- Select all
+      ["<C-a>"] = { "gg<S-v>G" },
+      -- don't yank with "x"
+      ["x"] = { '"_x' },
+      -- Move lines and characters with Move plugin
+      ['<A-j>'] = {':MoveLine(1)<CR>'},
+      ['<A-k>'] = {':MoveLine(-1)<CR>'},
+      ['<A-h>'] = {':MoveHChar(-1)<CR>'},
+      ['<A-l>'] = {':MoveHChar(1)<CR>'},
     },
     t = {
       -- setting a mapping to false will disable it
       -- ["<esc>"] = false,
+    },
+    i = {
+      -- Ctrl-E in insert mode to go to the end of the line 
+      ["<C-E>"] = { "<ESC>A" },
+      -- Ctrl-A in insert mode to go to the beginning of the line 
+      ["<C-A>"] = { "<ESC>I"},
+    },
+    x = {
+    },
+    v = {
+      -- Moving selected blocks with Move plugin
+      ['<A-j>'] = {':MoveBlock(1)<CR>'},
+      ['<A-k>'] = {':MoveBlock(-1)<CR>'},
+      ['<A-h>'] = {':MoveHBlock(-1)<CR>'},
+      ['<A-l>'] = {':MoveHBlock(1)<CR>'},
     },
   },
 
@@ -249,6 +273,8 @@ local config = {
       },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "turbio/bracey.vim" },
+      { "tpope/vim-unimpaired" },
+      { "fedepujol/move.nvim" }
       -- We also support a key value style plugin definition similar to NvChad:
       -- ["ray-x/lsp_signature.nvim"] = {
       --   event = "BufRead",
@@ -347,5 +373,28 @@ local config = {
     -- }
   end,
 }
+
+-- Boticelli's autocommands
+local A = vim.api
+
+A.nvim_create_autocmd({ 'TextYankPost' }, {
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+-- Changes Background color to darker upon entering Insert mode
+A.nvim_create_autocmd({ "InsertEnter" }, {
+    callback = function()
+        vim.api.nvim_set_hl(0, "Normal", {bg= C.black })
+    -- C is "default_theme.colors" - see above
+  end
+})
+
+A.nvim_create_autocmd({ "InsertLeave" }, {
+    callback = function()
+        vim.api.nvim_set_hl(0, "Normal", { bg= C.bg })
+    end
+})
 
 return config
