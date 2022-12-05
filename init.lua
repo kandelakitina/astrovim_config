@@ -216,6 +216,10 @@ local config = {
       ['<A-k>'] = {':MoveLine(-1)<CR>'},
       ['<A-h>'] = {':MoveHChar(-1)<CR>'},
       ['<A-l>'] = {':MoveHChar(1)<CR>'},
+      -- Cansel Highlighting with ESC
+      ['<ESC>'] = {':nohlsearch<Bar>:echo<CR>'},
+      -- Cntr-Shift-V to paste
+      ['<C-S-v>'] = {'"+p'},
     },
     t = {
       -- setting a mapping to false will disable it
@@ -226,6 +230,8 @@ local config = {
       ["<C-E>"] = { "<ESC>A" },
       -- Ctrl-A in insert mode to go to the beginning of the line 
       ["<C-A>"] = { "<ESC>I"},
+      -- Ctrl-Shift-V to paste in insert mode
+      ["<C-S-v>"] = {'<C-r>+'},
     },
     x = {
     },
@@ -235,6 +241,14 @@ local config = {
       ['<A-k>'] = {':MoveBlock(-1)<CR>'},
       ['<A-h>'] = {':MoveHBlock(-1)<CR>'},
       ['<A-l>'] = {':MoveHBlock(1)<CR>'},
+      -- Paste instead of selection without yanking
+      ['p'] = {'_dp'},
+      -- Copy with Ctrl-C
+      ['<C-c>'] = { '"+y' },
+    },
+    c = {
+      -- Ctrl-Shift-V to paste in Command mode
+      ['<C-S-v>'] = {'<C-r>+'},
     },
   },
 
