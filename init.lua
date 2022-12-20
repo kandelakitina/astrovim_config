@@ -1,3 +1,5 @@
+-- TODO Try removing Emmet addins as the end, now that Emmet-ls LSP autoloads
+
 --              AstroNvim Configuration Table
 -- All configuration changes should go inside of the table below
 
@@ -324,11 +326,11 @@ local config = {
     },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-      -- ensure_installed = { "sumneko_lua" },
+      ensure_installed = { "emmet_ls", "html" },
     },
     -- use mason-null-ls to configure Formatters/Linter installation for null-ls sources
     ["mason-null-ls"] = { -- overrides `require("mason-null-ls").setup(...)`
-      -- ensure_installed = { "prettier", "stylua" },
+      ensure_installed = { "prettier", "prettierd" },
     },
   },
 
